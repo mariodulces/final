@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ruta precisa - Calahorra</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    html, body, #map { height: 100%; margin: 0; padding: 0; }
+    #info {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 10px;
+      z-index: 1000;
+      font-family: Arial, sans-serif;
+      max-width: 300px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+<div id="info">
+  <b>Ruta exacta entre la Catedral y El Raso</b><br>
+  <span style="color:green;">Andando:</span> 0,44 km – aprox. <b>8 min</b><br>
+  <span style="color:blue;">En bici:</span> 0,50 km – aprox. <b>5 min</b>
+</div>
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  const map = L.map('map').setView([42.3003, -1.9595], 16);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Marcadores
+  L.marker([42.299254, -1.957444]).addTo(map).bindPopup("Catedral de Santa María");
+  L.marker([42.301524, -1.961210]).addTo(map).bindPopup("El Raso");
+
+  // Ruta andando (verde)
+  const rutaAndando = [
+    [42.299334, -1.957507], [42.299248, -1.957706], [42.299396, -1.958034],
+    [42.299830, -1.958759], [42.299888, -1.958789], [42.299913, -1.958801],
+    [42.300035, -1.958726], [42.300219, -1.959027], [42.300323, -1.959106],
+    [42.300432, -1.959098], [42.300544, -1.959020], [42.300570, -1.959123],
+    [42.300624, -1.959347], [42.300661, -1.959420], [42.300749, -1.959488],
+    [42.300764, -1.959496], [42.300965, -1.959854], [42.301084, -1.960174],
+    [42.301239, -1.960518], [42.301350, -1.960757], [42.301372, -1.960801],
+    [42.301539, -1.961139], [42.301531, -1.961211]
+  ];
+  L.polyline(rutaAndando, { color: 'green', weight: 5 }).addTo(map);
+
+  // Ruta en bici (azul) con más precisión
+  const rutaBici = [
+    [42.299334, -1.957507], [42.299248, -1.957706], [42.299396, -1.958034],
+    [42.299830, -1.958759], [42.299888, -1.958789], [42.299913, -1.958801],
+    [42.300035, -1.958726], [42.300219, -1.959027], [42.300323, -1.959106],
+    [42.300432, -1.959098], [42.300544, -1.959020], [42.300999, -1.959003],
+    [42.301067, -1.959315], [42.301151, -1.959279], [42.301361, -1.959754],
+    [42.301451, -1.960025], [42.301457, -1.960134], [42.301286, -1.960494],
+    [42.301239, -1.960518], [42.301350, -1.960757], [42.301372, -1.960801],
+    [42.301539, -1.961139], [42.301531, -1.961211]
+  ];
+  L.polyline(rutaBici, { color: 'blue', weight: 4, dashArray: '6, 6' }).addTo(map);
+</script>
+
+</body>
+</html>
